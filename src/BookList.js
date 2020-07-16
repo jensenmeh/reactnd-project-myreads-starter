@@ -20,10 +20,18 @@ class BookList extends Component {
                   <div className="book-shelf-changer">
                     <select value="move" onChange={(event) => this.props.onShelfUpdate(book, event.target.value)}>
                       <option value="move" disabled>Move to...</option>
-                      <option value="currentlyReading">Currently Reading</option>
-                      <option value="wantToRead">Want to Read</option>
-                      <option value="read">Read</option>
-                      <option value="none">None</option>
+                      {book.shelf !== "currentlyReading" &&
+                        <option value="currentlyReading">Currently Reading</option>
+                      }
+                      {book.shelf !== "wantToRead" &&
+                        <option value="wantToRead">Want to Read</option>
+                      }
+                      {book.shelf !== "read" &&
+                        <option value="read">Read</option>
+                      }
+                      {book.shelf &&
+                        <option value="none">None</option>
+                      }
                     </select>
                   </div>
                 </div>
