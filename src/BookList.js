@@ -3,9 +3,7 @@ import React, { Component } from 'react';
 class BookList extends Component {
 
   render() {
-    console.log(this.props.books);
     return (
-      <div className="bookshelf-books">
         <ol className="books-grid">
           {this.props.books.map((book) => (
             <li key={book.id}>
@@ -23,14 +21,16 @@ class BookList extends Component {
                   </div>
                 </div>
                 <div className="book-title">{book.title}</div>
-                {book.authors.map((author) => (
-                  <div key={author} className="book-authors">{author}</div>
-                ))}
+                {book.authors
+                  ? book.authors.map((author) => (
+                    <div key={author} className="book-authors">{author}</div>
+                  ))
+                  : <div className="book-authors">No Author Listed</div>
+                }
               </div>
             </li>
           ))}
         </ol>
-      </div>
     )
   }
 }

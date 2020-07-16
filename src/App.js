@@ -60,15 +60,21 @@ class BooksApp extends React.Component {
               <div>
                 <div className="bookshelf">
                   <h2 className="bookshelf-title">Currently Reading</h2>
-                  <BookList onShelfUpdate={this.updateShelf} books={this.state.books.filter((book) => (book.shelf === "currentlyReading"))}/>
+                  <div className="bookshelf-books">
+                    <BookList onShelfUpdate={this.updateShelf} books={this.state.books.filter((book) => (book.shelf === "currentlyReading"))}/>
+                  </div>
                 </div>
                 <div className="bookshelf">
                   <h2 className="bookshelf-title">Want to Read</h2>
-                  <BookList onShelfUpdate={this.updateShelf} books={this.state.books.filter((book) => (book.shelf === "wantToRead"))}/>
+                  <div className="bookshelf-books">
+                    <BookList onShelfUpdate={this.updateShelf} books={this.state.books.filter((book) => (book.shelf === "wantToRead"))}/>
+                  </div>
                 </div>
                 <div className="bookshelf">
                   <h2 className="bookshelf-title">Read</h2>
-                  <BookList onShelfUpdate={this.updateShelf} books={this.state.books.filter((book) => (book.shelf === "read"))}/>
+                  <div className="bookshelf-books">
+                    <BookList onShelfUpdate={this.updateShelf} books={this.state.books.filter((book) => (book.shelf === "read"))}/>
+                  </div>
                 </div>
               </div>
             </div>
@@ -79,7 +85,9 @@ class BooksApp extends React.Component {
             </div>
           </div>
         )} />
-        <Route path='/search' component={SearchBooks}/>
+        <Route path='/search' render={() => (
+          <SearchBooks onShelfUpdate={this.updateShelf}/>
+        )}/>
       </div>
     )
   }
