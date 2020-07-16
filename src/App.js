@@ -29,23 +29,45 @@ class BooksApp extends React.Component {
 
   updateShelf = (book, shelf) => {
     BooksAPI.update(book, shelf)
-
-    const updatedBooks = this.state.books.map((origBook) => {
-      if(origBook.id === book.id) {
-        const updatedBook = {
-          ...origBook,
-          shelf: shelf
+    //remove book
+    if(shelf === "none") {
+      const shortBookList = this.state.books.filter((origBook) => (origBook.id !== book.id))
+      console.log("Shortened book List", shortBookList)
+      this.setState(() => ({
+        books: shortBookList
+      }))
+      //update shelf
+    } else {
+      const updatedBooks = this.state.books.map((origBook) => {
+        if(origBook.id === book.id) {
+          const updatedBook = {
+            ...origBook,
+            shelf: shelf
+          }
+          return updatedBook;
         }
-        return updatedBook;
-      }
-      return origBook;
-    })
+        return origBook;
+      })
 
-    console.log("updated books", updatedBooks)
-    this.setState((prevState) => ({
-      books: updatedBooks
+      console.log("updated books", updatedBooks)
+      this.setState((prevState) => ({
+        books: updatedBooks
+      }))
+      console.log("New State", this.state.books)
+    }
+
+
+  }
+
+  addToShelf = (book, shelf) => {
+    BooksAPI.update(book, shelf)
+    let newBook = book;
+    newBook.shelf = shelf;
+
+    this.setState(() => ({
+      books: [...this.state.books, newBook]
     }))
-    console.log("New State", this.state.books)
+    console.log("Added Book State", this.state.books)
   }
 
   render() {
@@ -86,7 +108,7 @@ class BooksApp extends React.Component {
           </div>
         )} />
         <Route path='/search' render={() => (
-          <SearchBooks onShelfUpdate={this.updateShelf}/>
+          <SearchBooks onShelfUpdate={this.addToShelf}/>
         )}/>
       </div>
     )
