@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
-import BookList from './BookList'
+import BookGrid from './BookGrid'
 
 class SearchBooks extends Component {
 
@@ -41,7 +41,7 @@ class SearchBooks extends Component {
         </div>
         <div className="search-books-results">
           {Array.isArray(this.state.queryBooks) && this.state.queryBooks !== [] &&
-            <BookList onShelfUpdate={this.props.onShelfUpdate} books={this.state.queryBooks}/>
+            <BookGrid onShelfUpdate={this.props.onShelfUpdate} books={this.state.queryBooks}/>
           }
         </div>
       </div>

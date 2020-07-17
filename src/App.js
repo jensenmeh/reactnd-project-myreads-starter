@@ -1,9 +1,8 @@
 import React from 'react'
 import * as BooksAPI from './BooksAPI'
 import './App.css'
-import BookList from './BookList'
 import SearchBooks from './SearchBooks'
-import { Link } from 'react-router-dom'
+import BookList from './BookList'
 import { Route } from 'react-router-dom'
 
 class BooksApp extends React.Component {
@@ -74,41 +73,10 @@ class BooksApp extends React.Component {
     return (
       <div className="app">
         <Route exact path='/' render={() => (
-          <div className="list-books">
-            <div className="list-books-title">
-              <h1>MyReads</h1>
-            </div>
-            <div className="list-books-content">
-              <div>
-                <div className="bookshelf">
-                  <h2 className="bookshelf-title">Currently Reading</h2>
-                  <div className="bookshelf-books">
-                    <BookList onShelfUpdate={this.updateShelf} books={this.state.books.filter((book) => (book.shelf === "currentlyReading"))}/>
-                  </div>
-                </div>
-                <div className="bookshelf">
-                  <h2 className="bookshelf-title">Want to Read</h2>
-                  <div className="bookshelf-books">
-                    <BookList onShelfUpdate={this.updateShelf} books={this.state.books.filter((book) => (book.shelf === "wantToRead"))}/>
-                  </div>
-                </div>
-                <div className="bookshelf">
-                  <h2 className="bookshelf-title">Read</h2>
-                  <div className="bookshelf-books">
-                    <BookList onShelfUpdate={this.updateShelf} books={this.state.books.filter((book) => (book.shelf === "read"))}/>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="open-search">
-              <Link to="/search">
-                <button>Add a book</button>
-              </Link>
-            </div>
-          </div>
+          <BookList books={this.state.books} onShelfUpdate={this.updateShelf} />
         )} />
         <Route path='/search' render={() => (
-          <SearchBooks onShelfUpdate={this.addToShelf}/>
+          <SearchBooks books={this.state.books} onShelfUpdate={this.addToShelf}/>
         )}/>
       </div>
     )
