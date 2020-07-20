@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import BookGrid from './BookGrid'
+import Shelf from './Shelf'
 
 class SearchBooks extends Component {
 
@@ -10,13 +11,34 @@ class SearchBooks extends Component {
   }
 
   updateQuery = (value) => {
+
+
     BooksAPI.search(value)
       .then((res) => {
-        this.setState(() => ({
-          queryBooks: res
-        }))
-        console.log("Queried Books", res)
+        let queryResults = res;
+        console.log("Queried Books", queryResults)
+        return queryResults
       })
+      .then((results) => {
+        if(Array.isArray(results)) {
+          return results.map((book) => {
+            if(this.props.books.find((origBook) => origBook.id === book.id)) {
+              return this.props.books.find((origBook) => origBook.id === book.id);
+            } else {
+              return book;
+            }
+          })
+        } else {
+          return [];
+        }
+      })
+      .then((books) => {
+        this.setState(() => ({
+          queryBooks: books
+        }))
+        console.log("Compared Books", books)
+      })
+
   }
 
   render() {
@@ -41,8 +63,11 @@ class SearchBooks extends Component {
         </div>
         <div className="search-books-results">
           {Array.isArray(this.state.queryBooks) && this.state.queryBooks !== [] &&
-            <BookGrid onShelfUpdate={this.props.onShelfUpdate} books={this.state.queryBooks}/>
+            <BookGrid books={this.state.queryBooks.filter((book) => !book.shelf)} onShelfUpdate={this.props.onShelfUpdate}/>
           }
+        </div>
+        <div className="bookshelf">
+          <Shelf books={this.state.queryBooks} onShelfUpdate={this.props.onShelfUpdate}/>
         </div>
       </div>
     )

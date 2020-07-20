@@ -9,7 +9,7 @@ class BookList extends Component {
         <div className="list-books-title">
           <h1>MyReads</h1>
         </div>
-        <Shelf books={this.props.books} onShelfUpdate={this.props.onShelfUpdate} />
+        <Shelf viewable={true} books={this.props.books} onShelfUpdate={this.props.onShelfUpdate} />
         <div className="open-search">
           <Link to="/search">
             <button>Add a book</button>
