@@ -22,7 +22,6 @@ class BooksApp extends React.Component {
         this.setState(() => ({
           books: books
         }))
-        console.log("All Books", books);
       })
   }
 
@@ -31,7 +30,6 @@ class BooksApp extends React.Component {
     //remove book
     if(shelf === "none") {
       const shortBookList = this.state.books.filter((origBook) => (origBook.id !== book.id))
-      console.log("Shortened book List", shortBookList)
       this.setState(() => ({
         books: shortBookList
       }))
@@ -47,12 +45,9 @@ class BooksApp extends React.Component {
         }
         return origBook;
       })
-
-      console.log("updated books", updatedBooks)
       this.setState((prevState) => ({
         books: updatedBooks
       }))
-      console.log("New State", this.state.books)
     }
 
 
@@ -66,7 +61,6 @@ class BooksApp extends React.Component {
     this.setState(() => ({
       books: [...this.state.books, newBook]
     }))
-    console.log("Added Book State", this.state.books)
   }
 
   render() {

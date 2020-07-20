@@ -16,7 +16,6 @@ class SearchBooks extends Component {
     BooksAPI.search(value)
       .then((res) => {
         let queryResults = res;
-        console.log("Queried Books", queryResults)
         return queryResults
       })
       .then((results) => {
@@ -36,7 +35,6 @@ class SearchBooks extends Component {
         this.setState(() => ({
           queryBooks: books
         }))
-        console.log("Compared Books", books)
       })
 
   }
